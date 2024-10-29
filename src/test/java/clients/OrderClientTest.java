@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import sprint7.clients.OrderClient;
 
+import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(Parameterized.class)
@@ -36,8 +37,6 @@ public class OrderClientTest {
         orderClient = new OrderClient();
     }
 
-
-
     @Test
     public void createOrderWithDifferentColors() {
         Response response = sendCreateOrderRequest(color);
@@ -53,7 +52,7 @@ public class OrderClientTest {
 
     @Step("Проверяем тело ответа и код ответа")
     private void validateResponse(Response response) {
-        response.then().statusCode(201)
+        response.then().statusCode(SC_CREATED)
                 .body("track", notNullValue());
     }
 
